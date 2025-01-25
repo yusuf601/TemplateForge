@@ -118,6 +118,41 @@ void PilihanPython(int& choice){
                     break;
 
                 }
+                case 3:{
+                    std::cout << "Pastikan anda sudah membuat Repository dengan nama yang dengan username github anda! " << std::endl;
+                    std::ofstream WakatimeTemplate("wakatime.yaml");
+                    if(!WakatimeTemplate.is_open()){
+                        std::cout << "FIle Wakatime.yaml gagal dibuat! " << std::endl;
+                    }
+                        // Menulis konten ke file
+                    WakatimeTemplate << "name: Waka Readme\n\n";
+                    WakatimeTemplate << "on:\n";
+                    WakatimeTemplate << "  schedule:\n";
+                    WakatimeTemplate << "    # Runs every 2 hours\n";
+                    WakatimeTemplate << "    - cron: \"0 */2 * * *\"\n";
+                    WakatimeTemplate << "  workflow_dispatch:\n\n";
+                    WakatimeTemplate << "jobs:\n";
+                    WakatimeTemplate << "  update-readme:\n";
+                    WakatimeTemplate << "    name: Update Readme with Metrics\n";
+                    WakatimeTemplate << "    runs-on: ubuntu-latest\n";
+                    WakatimeTemplate << "    steps:\n";
+                    WakatimeTemplate << "      - uses: anmol098/waka-readme-stats@master\n";
+                    WakatimeTemplate << "        with:\n";
+                    WakatimeTemplate << "          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}\n";
+                    WakatimeTemplate << "          GH_TOKEN: ${{ secrets.GH_TOKEN }}\n";
+                    WakatimeTemplate << "          LOCALE: \"id\"  # Mengatur bahasa ke Bahasa Indonesia\n";
+                    WakatimeTemplate << "          SHOW_OS: \"True\"\n";
+                    WakatimeTemplate << "          SHOW_PROJECTS: \"False\"\n";
+                    WakatimeTemplate << "          SHOW_LINES_OF_CODE: \"False\"\n";
+                    WakatimeTemplate << "          SHOW_TOTAL_CODE_TIME: \"True\"\n";
+                    WakatimeTemplate << "          COMMIT_MESSAGE: \"Updated with dev metrics\"\n";
+                    WakatimeTemplate << "          COMMIT_USERNAME: \"readme-bot\"\n";
+                    WakatimeTemplate << "          SHOW_PROFILE_VIEWS: \"True\"\n";
+                    WakatimeTemplate << "          SHOW_COMMIT: \"False\"\n";
+                    WakatimeTemplate << "          SHOW_DAYS_OF_WEEK: \"True\"\n";
+                    WakatimeTemplate << "          SHOW_SHORT_INFO: \"True\"\n";
+
+                }    
 
             }
         }
